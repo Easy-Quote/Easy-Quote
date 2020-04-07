@@ -1,0 +1,13 @@
+<form action="/your-name/" method="post">
+    {% csrf_token %}
+    <label for="quote_customer">Customer: </label>
+    {{ form.quote_customer }}
+    <label for="quote_address">Address: </label>
+    {{ form.quote_address }}
+    <label for="quote_employee">Employee: </label>
+    {{ form.quote_employee }}
+    {{ form.quote_items_code.as_hidden }}
+    <label for="quote_total_price">Price: </label>
+    {{ form.quote_total_price.hidden }}
+    <input type="submit" value="Submit">
+</form>

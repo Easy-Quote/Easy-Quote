@@ -1,0 +1,43 @@
+body{
+    background: radial-gradient(circle at top right,rgba(224, 160, 76, 0.76) 25%,rgba(255, 255, 255, 0) 75%);
+    color: black;
+}
+a:link {
+    color: rgb(47, 0, 255);
+    background-color: transparent;
+    text-decoration: none;
+  }
+  
+  a:visited {
+    color: pink;
+    background-color: transparent;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    color: red;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+  
+  a:active {
+    color: yellow;
+    background-color: transparent;
+    text-decoration: underline;
+  }
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+table{
+    table-layout: auto;
+    width: 20%;
+    border: 1px solid black;
+}
+td {
+    border: 1px solid black;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }

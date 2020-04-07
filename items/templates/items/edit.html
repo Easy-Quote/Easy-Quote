@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        {% load static %}
+        <script src="{% static 'checkbox.js' %}"></script>
+        <title>Edit DB</title>
+    </head>
+    <body>        
+        <a href="/"><img src="{% static "items/images/New-Logo-1.png" %}" alt="main logo"></a>
+        <h1>Edit database</h1>
+        <h3>Database</h3>
+        <table>
+            <thead>
+                <tr>
+                    <td></td>
+                    {% for item in column_list %}
+                        <td> {{ item }} </td>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for a in test %}
+                    <tr>
+                        <td><input type="checkbox" id='{{ a.pk }}' name="123" class="cb-element"></td>
+                        <td> {{ a.item_code }} </td>
+                        <td> {{ a.item_description }} </td>
+                        <td> {{ a.item_price }} </td>
+                    </tr>
+                {% endfor %}
+            </tbody> 
+        </table>
+        <button class="check">Select All</button>
+        {% comment %} <button>Deselect All</button> {% endcomment %}
+        <button>Edit Selected</button>
+    </body>
+</html>
