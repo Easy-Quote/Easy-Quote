@@ -1,0 +1,143 @@
+Auth docs
+https://docs.djangoproject.com/en/3.0/topics/auth/default/
+
+How to make request if user is loged in:
+=====================================================
+if request.user.is_authenticated:
+    # Do something for authenticated users.
+    ...
+else:
+    # Do something for anonymous users.
+    ...
+======================================================
+
+How to authenticate users
+============================================================================
+from django.contrib.auth import authenticate, login
+
+def my_view(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        # Redirect to a success page.
+        ...
+    else:
+        # Return an 'invalid login' error message.
+        ...
+==============================================================================
+
+Log out user:
+==========================================================
+from django.contrib.auth import logout
+
+def logout_view(request):
+    logout(request)
+    # Redirect to a success page.
+==========================================================
+
+Requires login:
+==========================================================
+"""
+from django.contrib.auth.decorators import login_required
+
+@login_required(%s) """   redirect_field_name='my_redirect_field'   /   login_url='/accounts/login/'   """
+def my_view(request):
+    ...
+"""
+"""
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+class MyView(LoginRequiredMixin, View):
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
+"""
+===========================================================
+
+Permission requirement:
+============================================================
+from django.contrib.auth.decorators import permission_required
+
+@permission_required('Required Permission')
+def my_view(request):
+    ...
+=============================================================
+
+Change password for loged in user:
+=============================================================
+from django.contrib.auth import update_session_auth_hash
+
+def password_change(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+    else:
+        ...
+==============================================================
+
+Use django authentication templates:
+==============================================================
+from django.contrib.auth import views as auth_views
+
+urlpatterns = [
+    path('change-password/', auth_views.PasswordChangeView.as_view()),
+]
+===============================================================
+
+Custom Login page:
+===============================================================
+urls.py
+
+path('accounts/login/', auth_views.LoginView.as_view(template_name='myapp/login.html')),
+
+login.html
+
+"""
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+{% if next %}
+    {% if user.is_authenticated %}
+    <p>Your account doesn't have access to this page. To proceed,
+    please login with an account that has access.</p>
+    {% else %}
+    <p>Please login to see this page.</p>
+    {% endif %}
+{% endif %}
+
+<form method="post" action="{% url 'login' %}">
+{% csrf_token %}
+<table>
+<tr>
+    <td>{{ form.username.label_tag }}</td>
+    <td>{{ form.username }}</td>
+</tr>
+<tr>
+    <td>{{ form.password.label_tag }}</td>
+    <td>{{ form.password }}</td>
+</tr>
+</table>
+
+<input type="submit" value="login">
+<input type="hidden" name="next" value="{{ next }}">
+</form>
+
+{# Assumes you setup the password_reset view in your URLconf #}
+<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+
+{% endblock %}
+"""
+=============================================================================
+
+Email comfirmation:
+=========================================
+https://docs.djangoproject.com/en/3.0/topics/auth/default/#django.contrib.auth.views.PasswordResetView
+=====================================

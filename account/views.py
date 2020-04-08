@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.contrib.auth import logout
 
 # Create your views here.
 
@@ -7,10 +8,18 @@ def account(request):
     context = {
         'test': 'test',
     }
-    return render(request, 'account/account.html')
+    return render(request, 'account/account.html', context)
 
-def login(request):
+def profile(request):
+    if request.user != None:
+        user1 = request.user
+        print(user1)
+    else:
+        user1 = None
     context = {
-        'test': 'test',
+        'user': user1,
     }
-    return render(request, 'account/login.html', context)
+    return render(request, 'account/profile.html', context)
+
+def logout_view(request):
+    logout(request)
