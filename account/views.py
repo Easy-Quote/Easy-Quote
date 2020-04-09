@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 
@@ -10,6 +12,7 @@ def account(request):
     }
     return render(request, 'account/account.html', context)
 
+@login_required(login_url='/account/login/')
 def profile(request):
     if request.user != None:
         user1 = request.user
@@ -23,3 +26,4 @@ def profile(request):
 
 def logout_view(request):
     logout(request)
+    return redirect("../../")

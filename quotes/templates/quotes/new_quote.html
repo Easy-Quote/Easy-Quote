@@ -2,8 +2,41 @@
 <html>
     <head>
         <title>New Quote</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'quotes/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'quotes/login.css' %}">
     </head>
     <body>
+        <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
+            <div class="navbar-nav-scroll">
+                <ul class="navbar-nav bd-navbar-nav flex-row">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/quotes">Quotes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/items">Database</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                        <li>
+                            <a class="nav-link" href="/account/profile">Account</a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="/account/logout">Log Out</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/account/login">Login</a>
+                        </li>
+                        <li>
+                            <a class="nav-link" href="/account/sign_up">Sign Up</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </header>
         <!-- <form type="button" method="POST">
             <h4>Import text from login</h4>
             <label for="Customer">Customer:</label>

@@ -1,0 +1,12 @@
+Main
+    |___Inventory
+    |            |___Edit_items
+    |___Account
+    |          |___Login
+    |          |___Sign_up
+    |          |___Profile
+    |          |___Admin
+    |___Quotes
+              |___View
+              |___Edit
+              |___New
