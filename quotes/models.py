@@ -27,4 +27,4 @@ class Quote202(models.Model):
 
     def __str__(self):
         template = '{0.quote_customer} {0.quote_address} {0.quote_employee} {0.quote_totoal_price} {0.quote_items}'
-        return template.format(self)
+        return template.format(self) 
