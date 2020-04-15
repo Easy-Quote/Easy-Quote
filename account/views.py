@@ -17,8 +17,6 @@ def profile(request):
     if request.user != None:
         user1 = request.user
         print(user1)
-    else:
-        user1 = None
     context = {
         'user': user1,
     }

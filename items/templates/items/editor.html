@@ -3,8 +3,8 @@
     <head>
         {% load static %}
         <link rel="stylesheet" type="text/css" href="{% static 'items/style.css' %}">
-        <link rel="stylesheet" href="{% static 'account/bootstrap.css' %}">
-        <title>Inventory</title>
+        <link rel="stylesheet" href="{% static 'items/bootstrap.css' %}">
+        <title>Edit Item</title>
     </head>
     <body>
         <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
@@ -40,25 +40,16 @@
                 </ul>
             </div>
         </header>
-        <h1>Database</h1>
-        <table>
-            <thead>
-                <tr>
-                    {% for item in column_list %}
-                        <td> {{ item }} </td>
-                    {% endfor %}
-                </tr>
-            </thead>
-            <tbody>
-                {% for a in test %}
-                    <tr>
-                        <td> {{ a.item_code }} </td>
-                        <td> {{ a.item_description }} </td>
-                        <td> {{ a.item_price }} </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-        </table>
-        <a href="/items/edit">Edit Items</a>
+
+        <form action="/items/edit/" method='POST'>{% csrf_token %}
+            <label for="{{ code }} ">Item Code:</label>
+            <input type="text" name="item_code" value="{{ code }}" id="{{ code }}" readonly>
+            <label for="form.item_description"> Description: </label>
+            {{ form.item_description }}
+            <label for="form.item_price">Price: </label>
+            {{ form.item_price }}
+            <input type="submit" name="edited" value="Save">
+            <a href="/items">Cancel</a>
+        </form>
     </body>
 </html>

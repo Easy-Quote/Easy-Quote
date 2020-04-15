@@ -2,15 +2,17 @@
 <html>
     <head>
         {% load static %}
-        <script src="{% static 'checkbox.js' %}"></script>
-        <link rel="stylesheet" href="{% static 'quotes/bootstrap.css' %}">
-        <link rel="stylesheet" href="{% static 'quotes/login.css' %}">
+        <link rel="stylesheet" href="{% static 'items/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'items/style.css' %}">
         <title>Edit DB</title>
     </head>
     <body>
         <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
                 <div class="navbar-nav-scroll">
                     <ul class="navbar-nav bd-navbar-nav flex-row">
+                        <li>
+                            <a href="/"><img height="30" width="30" src="{% static "items/images/New-Logo-1.png" %}" alt="main logo"></a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/">Home</a>
                         </li>
@@ -37,10 +39,14 @@
                         {% endif %}
                     </ul>
                 </div>
-            </header>       
-        <a href="/"><img src="{% static "items/images/New-Logo-1.png" %}" alt="main logo"></a>
+            </header>
         <h1>Edit database</h1>
         <h3>Database</h3>
+        <form method="POST" enctype="multipart/form-data" action="/items/importcsv/">{% csrf_token %}
+            <input id="fileupload" name="myfile" type="file" accept=".csv"/>
+            <input type="submit" value="submit" id="submit" />
+            <p>Please make sure your .csv file has an empty line or reader on the first line or it will be deleted</p>
+        </form>
         <table>
             <thead>
                 <tr>
@@ -53,16 +59,17 @@
             <tbody>
                 {% for a in test %}
                     <tr>
-                        <td><input type="checkbox" id='{{ a.pk }}' name="123" class="cb-element"></td>
-                        <td> {{ a.item_code }} </td>
-                        <td> {{ a.item_description }} </td>
-                        <td> {{ a.item_price }} </td>
+                        <form action="." method="POST">{% csrf_token %}
+                            <td><input type="hidden" id='{{ a.pk }}' value="{{ a.pk }}" name="items"></td>
+                            <td> {{ a.item_code }} </td>
+                            <td> {{ a.item_description }} </td>
+                            <td> {{ a.item_price }} </td>
+                            <td><input type="submit" name="edit_item" value="Edit"></td>
+                            <td><input type="submit" name="delete_item" value="Delete"></td>
+                        </form>
                     </tr>
                 {% endfor %}
             </tbody> 
         </table>
-        <button class="check">Select All</button>
-        {% comment %} <button>Deselect All</button> {% endcomment %}
-        <button>Edit Selected</button>
     </body>
 </html>
