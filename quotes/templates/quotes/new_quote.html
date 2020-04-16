@@ -3,8 +3,8 @@
     <head>
         <title>New Quote</title>
         {% load static %}
-        <link rel="stylesheet" href="{% static 'quotes/bootstrap.css' %}">
-        <link rel="stylesheet" href="{% static 'quotes/login.css' %}">
+        <link rel="stylesheet" href="{% static 'items/bootstrap.css' %}">
+        <link rel="stylesheet" href="{% static 'items/style.css' %}">
     </head>
     <body>
         <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
@@ -38,9 +38,15 @@
             </div>
         </header>
         <form action="." method="POST">{% csrf_token %}
+            <label for="quote_employee">Employee: </label>
+            <input type="text" name="quote_employee" id="quote_employee" value="{{ user }}" readonly>
+            <label for="quote_customer">Customer Name</label>
             {{ form.quote_customer }}
+            <label for="quote_address">Customer Address</label>
             {{ form.quote_address }}
-            {{ form.quote_items }}
+            {{ form.quote_items.hidden }}
+            <label for="quote_price">Price: </label>
+            <p>R {{ form.quote_price }}</p>
             <input type="submit" value="Save">
         </form>
     </body>

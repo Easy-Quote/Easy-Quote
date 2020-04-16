@@ -68,7 +68,6 @@ def importcsv(request):
             lines = csvfile.read().split(b'\r\n')
             print(csvfile.read().decode("utf-8"))
             print(lines)
-            del lines[0]
             del lines[-1]
             for line in lines:
                 print(line)
