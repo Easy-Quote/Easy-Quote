@@ -4,7 +4,7 @@
         {% load static %}
         <link rel="stylesheet" type="text/css" href="{% static 'items/style.css' %}">
         <link rel="stylesheet" href="{% static 'items/bootstrap.css' %}">
-        <title>Inventory</title>
+        <title>New Item</title>
     </head>
     <body>
         <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
@@ -40,26 +40,10 @@
                 </ul>
             </div>
         </header>
-        <h1>Database</h1>
-        <table>
-            <thead>
-                <tr>
-                    {% for item in column_list %}
-                        <td> {{ item }} </td>
-                    {% endfor %}
-                </tr>
-            </thead>
-            <tbody>
-                {% for a in test %}
-                    <tr>
-                        <td> {{ a.item_code }} </td>
-                        <td> {{ a.item_description }} </td>
-                        <td> {{ a.item_price }} </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-        </table>
-        <a href="/items/new">New Item</a>
-        <a href="/items/edit">Edit Items</a>
+        <form action="." method="POST">{% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Save">
+            <a href="/items/edit/">Cancel</a>
+        </form>
     </body>
 </html>

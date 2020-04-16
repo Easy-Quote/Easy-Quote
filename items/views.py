@@ -86,3 +86,16 @@ def importcsv(request):
                     print(form.is_valid())
                     pass
             return redirect('/items')
+
+def new_item(request):
+    if request.method == 'POST':
+        form = Inventory1(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/items')
+    elif request.method == 'GET':
+        form = Inventory1()
+        context = {
+            'form': form,
+        }
+        return render(request, 'items/new.html', context)

@@ -37,54 +37,11 @@
                 </ul>
             </div>
         </header>
-        <!-- <form type="button" method="POST">
-            <h4>Import text from login</h4>
-            <label for="Customer">Customer:</label>
-            <input type="text" id="Customer" placeholder="Customer" name="Customer" required>
-            <label for="Address">Address:</label>
-            <input type="text" id="Address" placeholder="Address" name="Address" required>
-            <div>
-                <table border="1">
-                    <thead>
-                        <tr>
-                            <th></th>
-                            <th>code</th>
-                            <th>Description</th>
-                            <th>Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td>12345</td>
-                            <td>Key</td>
-                            <td>R100</td>
-                            <td><select name="quantity" id="quantity">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
-                            </select></td>
-                            <td><a href="#">X</a></td>
-                        </tr> 
-                        <tr>
-                            <td><a href="#">Add</a></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <button>Discard</button>
-            <input type="submit" name="Save" id="submit">
-        </form> -->
         <form action="." method="POST">{% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit">
+            {{ form.quote_customer }}
+            {{ form.quote_address }}
+            {{ form.quote_items }}
+            <input type="submit" value="Save">
         </form>
     </body>
 </html>
